@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
+    function me() { return get(/databases/$(database)/documents/recruiters/$(request.auth.uid)).data; }
+    function isApproved() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/recruiters/$(request.auth.uid))
+        && me().status == 'approved';
+    }
+
+    // Admins are added by hand in the Firebase console (document id = the admin's UID).
+    match /admins/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    match /recruiters/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin() || resource.data.leader == request.auth.uid);
+      allow create: if signedIn() && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['id','name','email','phone','status','role','leader','target','createdAt'])
+        && request.resource.data.status == 'pending'
+        && request.resource.data.role == 'recruiter'
+        && request.resource.data.leader == ''
+        && request.resource.data.target == 0
+        && request.auth.token.email == request.resource.data.id.lower() + '@orbit-recruiters.com';
+      allow update, delete: if isAdmin();
+
+      // Each recruiter's private candidates: only that recruiter and admins can read them.
+      match /candidates/{cid} {
+        allow read: if isAdmin() || (isApproved() && request.auth.uid == uid);
+        allow create, update: if isApproved() && request.auth.uid == uid;
+        allow delete: if isAdmin() || (isApproved() && request.auth.uid == uid);
+      }
+    }
+
+    // Summary numbers: readable by the recruiter, their team leader and admins.
+    match /stats/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin() || resource.data.leader == request.auth.uid);
+      allow create, update: if isApproved() && request.auth.uid == uid && request.resource.data.leader == me().leader;
+      allow delete: if isAdmin();
+    }
+
+    // Phone-number fingerprints used for the duplicate warning.
+    match /dups/{h} {
+      allow read: if isApproved();
+      allow create: if isApproved() && request.resource.data.by == request.auth.uid;
+      allow delete: if isApproved() && resource.data.by == request.auth.uid;
+    }
+
+    match /announce/{d} {
+      allow read: if isApproved() || isAdmin();
+      allow write: if isAdmin();
+    }
+  }
+}

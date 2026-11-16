@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Orbit | Recruiters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6ece2;--panel:#fffaf4;--ink:#031836;--mute:#5d5560;--bur:#6f2340;--accent:#6f2340;--navy:#031836;--line:rgba(111,35,64,.2);--ease:cubic-bezier(.22,1,.36,1);color-scheme:light;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#030f22;--panel:#0b2650;--ink:#f6ece2;--mute:#a9b0c4;--accent:#e9b8c6;--line:rgba(246,236,226,.2);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#030f22;--panel:#0b2650;--ink:#f6ece2;--mute:#a9b0c4;--accent:#e9b8c6;--line:rgba(246,236,226,.2);color-scheme:dark}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.55 "DM Sans",system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
+a,button,input,select,textarea{transition:background-color .4s var(--ease),color .4s var(--ease),border-color .4s var(--ease),transform .4s var(--ease),opacity .4s var(--ease)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:calc(14px + env(safe-area-inset-top,0px)) 5vw 14px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;background:var(--bg)}
+.brand{display:flex;align-items:center;gap:10px;font:italic 500 26px Fraunces,serif;color:var(--ink);text-decoration:none}
+.brand i{display:block;width:26px;height:26px;border-radius:50%;background:var(--bur);position:relative}.brand i:after{content:"";position:absolute;right:-5px;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--ink)}
+.brand small{font:400 11px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-left:6px}
+.who{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--mute)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--bur);background:var(--bur);color:#f6ece2;font:500 14px "DM Sans",sans-serif;cursor:pointer;text-decoration:none}
+.btn:hover{transform:translateY(-2px)}.btn.ghost{background:transparent;color:var(--accent);border-color:var(--accent)}
+.btn.sm{min-height:34px;padding:0 14px;font-size:13px}
+main{max-width:1200px;margin:auto;padding:30px 5vw 80px}
+h1{font:italic 500 clamp(32px,5vw,52px)/1.05 Fraunces,serif;letter-spacing:-.02em;color:var(--accent)}
+.sub{color:var(--mute);margin:8px 0 26px;max-width:60ch}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:22px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.stat b{display:block;font:italic 500 38px/1 Fraunces,serif}.stat span{font:400 11px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.bar input[type=search]{flex:1 1 220px}
+input,select,textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:11px 14px;min-height:44px;width:100%}
+.bar select{width:auto}
+.chk{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--mute);width:auto}.chk input{width:18px;min-height:18px;accent-color:var(--bur)}
+.list{display:grid;gap:10px}
+.row{display:grid;grid-template-columns:1.4fr 1.2fr 1.3fr .9fr 1fr auto;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px 18px}
+.row:hover{border-color:var(--accent)}
+.row.head{background:none;border:0;padding:0 18px;font:400 11px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.nm{font-weight:700}.mt{color:var(--mute);font-size:14px;overflow-wrap:anywhere}
+.row select{min-height:36px;padding:4px 10px;border-radius:999px;font-size:14px}
+.acts{display:flex;gap:6px}
+.empty{text-align:center;padding:50px 16px;color:var(--mute);border:1px dashed var(--line);border-radius:18px}
+.panel{position:fixed;inset:0;z-index:20;background:rgba(3,24,54,.55);display:none;overflow-y:auto;padding:20px}
+.panel.show{display:block}
+.sheet{max-width:640px;margin:20px auto;background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,4vw,34px);animation:up .5s var(--ease)}
+@keyframes up{from{opacity:0;transform:translateY(16px)}}
+.sheet h2{font:italic 500 30px Fraunces,serif;color:var(--accent);margin-bottom:16px}
+form{display:grid;gap:14px}.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:grid;gap:5px;font-size:13px;color:var(--mute)}
+.foot{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.note{font-size:13px;color:var(--mute);border-left:3px solid var(--bur);padding:6px 12px;margin-bottom:22px}
+.lock{max-width:520px;margin:12vh auto;text-align:center;padding:0 5vw}.lock h1{margin-bottom:12px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:var(--navy);color:#f6ece2;padding:12px 20px;border-radius:999px;opacity:0;pointer-events:none;z-index:40;font-size:14px;max-width:90vw}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.spin{width:36px;height:36px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;margin:18vh auto;animation:r 1s linear infinite}@keyframes r{to{transform:rotate(360deg)}}
+@media (max-width:860px){.row{grid-template-columns:1fr auto;grid-template-areas:"n a" "r r" "c c" "s s" "w w"}.row.head{display:none}.row>:nth-child(1){grid-area:n}.row>:nth-child(2){grid-area:r}.row>:nth-child(3){grid-area:c}.row>:nth-child(4){grid-area:s}.row>:nth-child(5){grid-area:w}.row>:nth-child(6){grid-area:a}.two{grid-template-columns:1fr}.who span{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+.tabs{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:999px;margin-bottom:24px;background:var(--panel)}
+.tabs button{all:unset;box-sizing:border-box;cursor:pointer;padding:10px 22px;border-radius:999px;font:500 14px "DM Sans",sans-serif;color:var(--ink);transition:background-color .4s var(--ease),color .4s var(--ease)}
+.tabs button[aria-selected="true"]{background:var(--bur);color:#f6ece2}.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,4vw,34px);max-width:560px}
+.card h2{font:italic 500 28px Fraunces,serif;color:var(--accent);margin-bottom:6px}
+.msg{font-size:14px;min-height:20px;color:var(--accent)}
+.idbox{margin:18px 0;padding:18px;border:1px dashed var(--accent);border-radius:18px;text-align:center}
+.idbox b{display:block;font:500 clamp(28px,7vw,40px)/1.1 "JetBrains Mono",monospace;letter-spacing:.06em;color:var(--accent);margin:4px 0 10px;user-select:all}
+.idbox span{font:400 11px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+ol.steps{margin:14px 0 0 20px;color:var(--mute);font-size:14px;display:grid;gap:6px}
+.chip{display:inline-block;font:400 12px "JetBrains Mono",monospace;letter-spacing:.06em;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:3px 12px;margin-left:8px;vertical-align:middle}
+.row.adm{grid-template-columns:1.1fr .9fr 1.3fr .8fr .9fr auto}.acts{flex-wrap:wrap}.row.adm .on{color:var(--accent);font-weight:700}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+@media (max-width:860px){.row.adm{grid-template-columns:1fr auto;grid-template-areas:"n a" "r r" "c c" "s s" "w w"}}
+.banner{display:flex;gap:12px;align-items:flex-start;background:var(--bur);color:#f6ece2;border-radius:18px;padding:14px 18px;margin-bottom:18px}
+.banner b{flex:none;font:400 11px "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:#f0c4cf;padding-top:4px}
+.calls{margin:0 0 22px}.calls h2{font:italic 500 24px Fraunces,serif;margin-bottom:10px}
+.call{display:grid;grid-template-columns:1.2fr 1fr auto auto;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--accent);border-radius:18px;padding:12px 18px;margin-bottom:8px}
+.tel{color:var(--accent);font-weight:500;text-decoration:none}
+.due{font:400 11px "JetBrains Mono",monospace;border:1px solid var(--accent);border-radius:999px;padding:3px 10px;color:var(--accent);white-space:nowrap}.due.late{background:var(--bur);color:#f6ece2;border-color:var(--bur)}
+.ringw{display:flex;align-items:center;gap:14px}.rbg{fill:none;stroke:var(--line);stroke-width:7}
+.rfg{fill:none;stroke:var(--accent);stroke-width:7;stroke-linecap:round;transform:rotate(-90deg);transform-origin:40px 40px;transition:stroke-dashoffset 1.2s var(--ease)}
+.ringtxt{font-size:13px;color:var(--mute);line-height:1.3}.ringtxt b{display:block;font:italic 500 26px Fraunces,serif;color:var(--ink)}
+.pbar{height:6px;border-radius:99px;background:var(--line);margin:6px 0;overflow:hidden}.pbar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width 1s var(--ease)}
+.row.team{grid-template-columns:1.2fr 1fr 1.3fr 1fr}
+.hist{font-size:13px;color:var(--mute)}.hist b{display:block;margin-bottom:4px;color:var(--ink)}
+.rk{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}.rk span{width:26px;height:26px;border-radius:50%;background:var(--bur);color:#f6ece2;display:grid;place-items:center;font-size:13px}.rk b{margin-left:auto;font:italic 500 22px Fraunces,serif}
+section[hidden]{display:none}
+@media (max-width:860px){.call{grid-template-columns:1fr auto}.row.team{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){
+  header{padding:10px 4vw}.brand{font-size:22px}.brand small{display:none}
+  .btn{min-height:40px;padding:0 16px;font-size:13px}.btn.sm{min-height:32px;padding:0 12px;font-size:12px}
+  .acts{gap:5px}.row .btn.sm{min-height:30px;padding:0 10px}
+  .tabs button{padding:8px 16px;font-size:13px}
+  .bar .btn{flex:1 1 auto}
+  input,select,textarea{min-height:42px;padding:9px 12px}
+  .stat{padding:12px 14px}.stat b{font-size:30px}
+}
+@media (max-width:860px){
+  .row.adm{grid-template-columns:minmax(0,1fr);grid-template-areas:"n" "r" "c" "s" "w" "a";gap:8px;padding:14px 16px}
+  .row.adm .acts{flex-wrap:wrap;gap:6px;margin-top:4px}.row.adm .acts .btn{flex:1 1 calc(33% - 6px);min-width:76px}
+  .row.adm .nm .chip{margin:4px 0 0}
+  .row.team{grid-template-columns:minmax(0,1fr);gap:8px}
+  .call{grid-template-columns:minmax(0,1fr) auto}.call .acts{grid-column:1/-1}
+  #atabs{display:grid;grid-template-columns:1fr 1fr;width:100%;border-radius:22px}
+  #atabs button{text-align:center;padding:10px 8px}
+  .top{gap:10px}.card{padding:18px}
+}
+@media (max-width:600px){
+  main{padding:20px 4.5vw 110px}
+  h1{font-size:30px}
+  .top{flex-direction:column;align-items:flex-start}
+  .ringw{gap:10px}.ringtxt b{font-size:22px}
+  .note{font-size:12px}
+  .stats{grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+  .stat{padding:10px 6px;text-align:center;border-radius:14px}.stat b{font-size:24px}.stat span{font-size:9px;letter-spacing:.03em}
+  .bar{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .bar input[type=search]{grid-column:1/-1}.bar select,.bar .btn{width:100%}
+  #add{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:8;width:auto;min-height:46px;padding:0 20px;font-size:14px;box-shadow:0 10px 26px rgba(0,0,0,.35)}
+  .row:not(.adm):not(.team){grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n w" "r r" "c c" "s a";gap:6px 10px;padding:12px 14px}
+  .row select{min-height:34px;font-size:13px;max-width:132px}
+  .row .acts{justify-self:end}
+  .call{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n d" "t t" "a a";gap:6px 10px;padding:12px 14px}
+  .call>:nth-child(1){grid-area:n}.call>:nth-child(2){grid-area:t}.call>:nth-child(3){grid-area:d}.call>:nth-child(4){grid-area:a}
+  .tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;border-radius:22px}.tabs button{text-align:center}
+  .panel{padding:8px}.sheet{margin:6px auto;padding:18px;border-radius:20px}.sheet h2{font-size:24px}.foot .btn{flex:1}
+  .banner{flex-direction:column;gap:4px;padding:12px 14px}
+  .idbox b{font-size:26px}.card{max-width:100%}
+}
+a,button,[role="tab"]{touch-action:manipulation}
+@media (max-width:820px){header{padding-top:calc(10px + env(safe-area-inset-top,0px));padding-bottom:10px}}
+@media (max-width:600px){main{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}}
+@media (max-width:430px){body{font-size:15px}h1{font-size:28px}.sub{font-size:14px}.sheet{max-height:none}.toast{font-size:13px}}
+</style>
+</head>
+<body>
+<header><a class="brand" href="./"><i></i>Orbit<small>Recruiters</small></a><div class="who"><span id="me"></span><button class="btn ghost sm" id="admb" type="button" hidden>Admin</button><button class="btn ghost sm" id="out" type="button" hidden>Log out</button><a class="btn ghost sm" href="./">Website</a></div></header>
+<main id="app"><div class="spin" role="status" aria-label="Loading"></div></main>
+<div class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="ft"><div class="sheet">
+  <h2 id="ft">Add candidate</h2>
+  <form id="f">
+    <div class="two"><label>Full name *<input name="name" required autocomplete="off"></label><label>Phone *<input name="phone" type="tel" required inputmode="tel"></label></div>
+    <div class="two"><label>Email<input name="email" type="email" inputmode="email"></label><label>Location<input name="location"></label></div>
+    <div class="two"><label>Current job title<input name="title"></label><label>Years of experience<input name="years" type="number" min="0" max="60" inputmode="numeric"></label></div>
+    <div class="two"><label>Applying for / client<input name="role"></label><label>Source<select name="source"><option>Referral</option><option>LinkedIn</option><option>Job board</option><option>Social media</option><option>Walk-in</option><option>Other</option></select></label></div>
+    <label>Status<select name="status" id="st"></select></label>
+    <label>Follow-up date<input name="follow" type="date"></label>
+    <label>Notes<textarea name="notes" rows="3"></textarea></label>
+    <div class="hist" id="hist"></div><div class="msg" id="dm" role="alert"></div>
+    <label class="chk"><input type="checkbox" name="ok" required><span>The candidate agreed to share these details with Orbit.</span></label>
+    <div class="foot"><button class="btn" type="submit" id="save">Save candidate</button><button class="btn ghost" type="button" id="cancel">Cancel</button></div>
+  </form></div></div>
+<div class="panel" id="mpanel" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet"><h2 id="mt">Manage recruiter</h2><form id="mf"><label>Role<select name="role"><option value="recruiter">Recruiter</option><option value="leader">Team Leader</option></select></label><label>Team Leader (for recruiters)<select name="leader"></select></label><label>Monthly placement target<input name="target" type="number" min="0" max="999" inputmode="numeric"></label><div class="foot"><button class="btn" type="submit">Save</button><button class="btn ghost" type="button" id="mc">Cancel</button></div></form></div></div>
+<div class="panel" id="pwpanel" role="dialog" aria-modal="true" aria-labelledby="pwt"><div class="sheet"><h2 id="pwt">Change password</h2><form id="pwf"><label>New password (8 or more characters)<input name="pw" type="password" minlength="8" required autocomplete="new-password"></label><div class="msg" id="pwm" role="alert"></div><div class="foot"><button class="btn" type="submit">Save</button><button class="btn ghost" type="button" id="pwc">Cancel</button></div></form></div></div>
+<div class="toast" id="toast" role="status"></div>
+<script type="module">
+import {initializeApp} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut,updatePassword,setPersistence,browserLocalPersistence,browserSessionPersistence} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import {getFirestore,doc,getDoc,getDocs,setDoc,addDoc,updateDoc,deleteDoc,collection,query,where,orderBy,onSnapshot,writeBatch} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+/* ===== 1. PASTE YOUR FIREBASE SETTINGS HERE (Project settings > Your apps > Web app) ===== */
+const FIREBASE_CONFIG={apiKey:'AIzaSyCCShlRtLuNqU9Mj3sHtCEJglX1Kl2GkgY',authDomain:'orbit-72afb.firebaseapp.com',projectId:'orbit-72afb',storageBucket:'orbit-72afb.firebasestorage.app',messagingSenderId:'891338520039',appId:'1:891338520039:web:1deb2e3d8926bdddcb7942'};
+/* ========================================================================================== */
+
+const $=q=>document.querySelector(q),app=$('#app');
+const ST=['New','Screened','Interview','Offer','Placed','Rejected'],MAIL='orbit.co.team@gmail.com';
+const FIELDS=['name','phone','email','location','title','years','role','source','status','follow','notes'];
+let auth,db,U=null,P=null,isAdm=false,unsubs=[],rows=[],ro=false,editing=null,col=null,lastStat='',allR=[],allS={},tab='me',dupOk=false,busy=false,atab='req';
+const esc=t=>{const d=document.createElement('div');d.textContent=t==null?'':String(t);return d.innerHTML};
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),3400)}
+const clear=()=>{unsubs.forEach(f=>{try{f()}catch(e){}});unsubs=[]};
+const normId=v=>{const d=String(v||'').replace(/\D/g,'');return d.length===6?'REC-'+d:null};
+const genId=()=>{const a=new Uint32Array(1);crypto.getRandomValues(a);return 'REC-'+(100000+a[0]%900000)};
+const synth=id=>id.toLowerCase()+'@orbit-recruiters.com';
+function twice(b,label,fn){if(b.dataset.s){fn()}else{b.dataset.s=1;b.textContent='Sure?';setTimeout(()=>{b.dataset.s='';b.textContent=label},3000)}}
+const p2=n=>('0'+n).slice(-2),mk=t=>{const d=new Date(t||Date.now());return d.getFullYear()+'-'+p2(d.getMonth()+1)};
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())};
+const phoneKey=p=>String(p||'').replace(/\D/g,'').slice(-9);
+async function sha(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>('0'+x.toString(16)).slice(-2)).join('')}
+function agg(list,m){const o={total:list.length,added:0,interview:0,offer:0,placedMonth:0,placed:0,last:0};
+  list.forEach(r=>{if(mk(r.createdAt)===m)o.added++;if(r.status==='Interview')o.interview++;if(r.status==='Offer')o.offer++;if(r.status==='Placed'){o.placed++;if(mk(r.placedAt||r.updatedAt||r.createdAt)===m)o.placedMonth++}o.last=Math.max(o.last,r.updatedAt||r.createdAt||0)});return o}
+const csvOf=lines=>'\ufeff'+lines.map(l=>l.map(x=>'"'+String(x==null?'':x).replace(/"/g,'""')+'"').join(',')).join('\n');
+function download(name,text){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'text/csv;charset=utf-8'}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+const snapR=d=>({...d.data(),uid:d.id}),snapC=d=>({...d.data(),id:d.id});
+$('#st').innerHTML=ST.map(s=>'<option>'+s+'</option>').join('');
+function cp(t,b){const o=b.textContent,ok=()=>{b.textContent='Copied';setTimeout(()=>b.textContent=o,1800)};
+  const old=()=>{const x=$('#rb');if(x){x.select();try{if(document.execCommand('copy'))ok()}catch(e){}}};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,old);else old()}
+function msgScreen(title,text,extra){clear();app.innerHTML='<div class="lock"><h1>'+title+'</h1><p class="sub" style="margin:0 auto 22px">'+text+'</p>'+(extra||'')+'</div>'}
+
+/* ---------- setup check ---------- */
+if(!FIREBASE_CONFIG.apiKey||FIREBASE_CONFIG.apiKey.startsWith('PASTE')){
+  app.innerHTML='<div class="lock"><h1>Almost ready</h1><p class="sub" style="margin:0 auto">This page needs your Firebase settings. Open <b>recruiters.html</b>, find <b>FIREBASE_CONFIG</b> near the top, and paste the settings from your Firebase project there.</p></div>';
+}else{
+  const fa=initializeApp(FIREBASE_CONFIG);auth=getAuth(fa);db=getFirestore(fa);start()
+}
+
+function start(){
+  onAuthStateChanged(auth,async u=>{if(busy)return;clear();
+    if(!u){U=null;P=null;isAdm=false;gate('in');return}
+    U=u;await loadProfile();route()});
+  $('#out').onclick=async()=>{clear();lastStat='';await signOut(auth)};
+  $('#admb').onclick=()=>admin(atab);
+}
+async function loadProfile(){
+  try{const s=await getDoc(doc(db,'recruiters',U.uid));P=s.exists()?{...s.data(),uid:U.uid}:null}catch(e){P=null}
+  try{const a=await getDoc(doc(db,'admins',U.uid));isAdm=a.exists()}catch(e){isAdm=false}}
+function route(){$('#out').hidden=false;$('#admb').hidden=!isAdm;$('#me').textContent=P?P.name:'';
+  if(P&&P.status==='approved'){dash();return}
+  if(isAdm){admin(atab);return}
+  if(!P){msgScreen('Account not found','This account has no profile. It may have been removed. Please contact Orbit.');return}
+  if(P.status==='pending'){pendingScreen();return}
+  msgScreen('Access paused','Your access is paused. Please contact Orbit.')}
+function pendingScreen(){clear();
+  app.innerHTML='<div class="lock"><h1>Waiting for approval</h1><p class="sub" style="margin:0 auto 14px">Thank you, '+esc(P.name.split(' ')[0])+'. Orbit is checking that you work with us. You will be able to log in as soon as you are approved.</p><div class="idbox" style="max-width:360px;margin:0 auto 14px"><span>Your recruiter ID</span><b>'+esc(P.id)+'</b></div><p class="sub" style="margin:0 auto;font-size:14px">Keep this ID and your password. You log in with both.</p></div>'}
+
+/* ---------- gate: log in / create account ---------- */
+function gate(t,note){clear();t=t||'in';$('#out').hidden=true;$('#admb').hidden=true;$('#me').textContent='';
+  const login='<form id="lf"><h2>Log in</h2><p class="sub" style="margin:0 0 16px">Use your recruiter ID and your password.</p><label>Recruiter ID<input name="id" placeholder="REC-123456" autocomplete="username" inputmode="numeric" required></label><label>Password<input name="pw" type="password" autocomplete="current-password" required></label><label class="chk"><input type="checkbox" name="keep" checked>Keep me signed in on this device</label><div class="msg" id="lm" role="alert">'+esc(note||'')+'</div><button class="btn" type="submit">Log in</button><p class="sub" style="margin:14px 0 0;font-size:13px">Forgot your password? Contact Orbit. We will reset your account so you can sign up again.</p></form>';
+  const sign='<form id="sf"><h2>Create account</h2><p class="sub" style="margin:0 0 16px">Tell us who you are. We generate your recruiter ID, then Orbit checks that you work with us.</p><label>Full name<input name="n" required autocomplete="name"></label><label>Email<input name="e" type="email" required autocomplete="email" inputmode="email"></label><label>Phone number<input name="p" type="tel" required autocomplete="tel" inputmode="tel"></label><label>Choose a password (8 or more characters)<input name="pw" type="password" minlength="8" required autocomplete="new-password"></label><label class="chk"><input type="checkbox" name="c" required>I agree that Orbit may contact me to verify my account.</label><div class="msg" id="sm" role="alert"></div><button class="btn" type="submit">Create my account</button></form>';
+  app.innerHTML='<h1>Recruiter access</h1><p class="sub">Every Orbit recruiter has a personal ID and a private dashboard.</p><div class="tabs" role="tablist"><button role="tab" id="t1" aria-selected="'+(t==='in')+'">Log in</button><button role="tab" id="t2" aria-selected="'+(t==='up')+'">Create account</button></div><div class="card" id="pane">'+(t==='in'?login:sign)+'</div>';
+  $('#t1').onclick=()=>gate('in');$('#t2').onclick=()=>gate('up');
+  if(t==='in')$('#lf').onsubmit=async e=>{e.preventDefault();const f=e.target.elements,m=$('#lm'),id=normId(f.id.value);
+    if(!id){m.textContent='Enter your ID like REC-123456.';return}m.textContent='Logging in...';
+    try{await setPersistence(auth,f.keep.checked?browserLocalPersistence:browserSessionPersistence);await signInWithEmailAndPassword(auth,synth(id),f.pw.value)}
+    catch(err){m.textContent=err.code==='auth/network-request-failed'?'No connection. Try again.':(err.code==='auth/too-many-requests'?'Too many tries. Wait a few minutes.':'The ID or the password is wrong.')}};
+  else $('#sf').onsubmit=signup}
+async function signup(e){e.preventDefault();const f=e.target.elements,m=$('#sm'),n=f.n.value.trim(),em=f.e.value.trim(),ph=f.p.value.trim(),pw=f.pw.value;
+  if(pw.length<8){m.textContent='The password needs at least 8 characters.';return}
+  m.textContent='Creating your account...';busy=true;let id,cred=null;
+  try{for(let i=0;i<8&&!cred;i++){id=genId();try{cred=await createUserWithEmailAndPassword(auth,synth(id),pw)}catch(err){if(err.code!=='auth/email-already-in-use')throw err}}
+    if(!cred)throw new Error('id');
+    await setDoc(doc(db,'recruiters',cred.user.uid),{id,name:n,email:em,phone:ph,status:'pending',role:'recruiter',leader:'',target:0,createdAt:Date.now()});
+    U=cred.user;busy=false;await loadProfile();showDone(id,n,em,ph)}
+  catch(err){busy=false;m.textContent=err.code==='auth/network-request-failed'?'No connection. Try again.':'Could not create the account. Please try again.'}}
+function showDone(id,n,em,ph){$('#out').hidden=false;
+  const body='Recruiter account request\n\nName: '+n+'\nEmail: '+em+'\nPhone: '+ph+'\nRecruiter ID: '+id,link='mailto:'+MAIL+'?subject='+encodeURIComponent('Recruiter account request - '+id)+'&body='+encodeURIComponent(body);
+  $('#pane').innerHTML='<h2>Your recruiter ID</h2><p class="sub" style="margin:0">Save it. You log in with this ID and your password after Orbit approves you.</p><div class="idbox"><span>Your ID</span><b id="rid">'+id+'</b><button class="btn ghost sm" id="cp" type="button">Copy ID</button></div><ol class="steps"><li>Orbit now sees your request and will check it.</li><li>To speed it up, you can send us an email too.</li><li>When approved, log in with your ID and password.</li></ol><textarea id="rb" readonly rows="4" style="margin:16px 0 12px">'+esc(body)+'</textarea><div class="foot"><a class="btn" href="'+link+'" target="_blank" rel="noopener">Email Orbit</a><button class="btn ghost" id="cb" type="button">Copy details</button></div>';
+  $('#cp').onclick=function(){cp(id,this)};$('#cb').onclick=function(){cp(body,this)}}
+
+/* ---------- personal dashboard ---------- */
+function dash(){clear();ro=false;rows=[];tab='me';col=collection(db,'recruiters',U.uid,'candidates');$('#out').hidden=false;$('#admb').hidden=!isAdm;$('#me').textContent=P.name;const lead=P.role==='leader';
+  app.innerHTML='<div id="ann"></div><div class="top"><div><h1>Welcome, '+esc(P.name.split(' ')[0])+'</h1><p class="sub" style="margin:6px 0 0">Your dashboard<span class="chip">'+esc(P.id)+'</span>'+(lead?'<span class="chip">Team Leader</span>':'')+' <button class="btn ghost sm" id="pwb" type="button">Change password</button></p></div><div id="ringbox"></div></div>'
+    +(lead?'<div class="tabs" role="tablist" style="margin-top:18px"><button role="tab" id="tm" aria-selected="true">My dashboard</button><button role="tab" id="tt" aria-selected="false">My team</button></div>':'')
+    +'<p class="note" style="margin-top:18px">You and Orbit management can see the candidates you add. Add only people who agreed to share their details.</p><div id="body"></div>';
+  $('#pwb').onclick=()=>{$('#pwf').reset();$('#pwm').textContent='';$('#pwpanel').classList.add('show')};
+  if(lead){$('#tm').onclick=()=>setTab('me');$('#tt').onclick=()=>setTab('team');
+    unsubs.push(onSnapshot(query(collection(db,'recruiters'),where('leader','==',U.uid)),s=>{allR=s.docs.map(snapR);renderTeam()},()=>{}));
+    unsubs.push(onSnapshot(query(collection(db,'stats'),where('leader','==',U.uid)),s=>{allS={};s.docs.forEach(d=>allS[d.id]=d.data());renderTeam()},()=>{}))}
+  unsubs.push(onSnapshot(doc(db,'announce','current'),d=>{const a=$('#ann'),t=d.exists()&&d.data().text;if(a)a.innerHTML=t?'<div class="banner"><b>Announcement</b><span>'+esc(t)+'</span></div>':''},()=>{}));
+  unsubs.push(onSnapshot(doc(db,'recruiters',U.uid),d=>{if(!d.exists()){msgScreen('Account removed','This account was removed. Please contact Orbit.');return}const o=d.data();if(o.status!=='approved'){P={...o,uid:U.uid};route();return}
+    const role=o.role||'recruiter',changed=role!==P.role;P={...o,uid:U.uid};if(changed){dash();return}paintRing()}));
+  unsubs.push(onSnapshot(query(col,orderBy('createdAt','desc')),s=>{rows=s.docs.map(snapC);render();sendStats()},()=>toast('Could not load your candidates.')));
+  setTab('me')}
+function setTab(t){tab=t;const b=$('#body');if(!b)return;
+  if(t==='me'){b.innerHTML='<div id="calls"></div><div class="stats" id="stats"></div><div class="bar"><input type="search" id="q" placeholder="Search name, phone, role..." aria-label="Search"><select id="fs" aria-label="Filter by status"><option value="">All statuses</option>'+ST.map(s=>'<option>'+s+'</option>').join('')+'</select><button class="btn ghost" id="exp" type="button">Export CSV</button><button class="btn" id="add" type="button">+ Add candidate</button></div><div class="list" id="list"></div>';
+    $('#q').oninput=render;$('#fs').onchange=render;$('#add').onclick=()=>openForm(null);$('#exp').onclick=exp;render()}
+  else{b.innerHTML='<div id="team"></div>';renderTeam()}
+  if($('#tm')){$('#tm').setAttribute('aria-selected',t==='me');$('#tt').setAttribute('aria-selected',t==='team')}}
+function shown(){const q=($('#q')||{value:''}).value.trim().toLowerCase(),f=($('#fs')||{value:''}).value;return rows.filter(r=>(!f||r.status===f)&&(!q||[r.name,r.phone,r.email,r.role,r.title,r.location].join(' ').toLowerCase().includes(q)))}
+function paintRing(){const el=$('#ringbox');if(!el||ro||!P)return;const a=agg(rows,mk()),t=+P.target||0;
+  if(!t){el.innerHTML='<div class="ringtxt">No monthly target set yet.<b>'+a.placedMonth+' placed</b>this month</div>';return}
+  const p=Math.min(a.placedMonth/t,1),C=2*Math.PI*34;
+  el.innerHTML='<div class="ringw"><svg viewBox="0 0 80 80" width="84" height="84" aria-hidden="true"><circle cx="40" cy="40" r="34" class="rbg"/><circle cx="40" cy="40" r="34" class="rfg" style="stroke-dasharray:'+C.toFixed(1)+';stroke-dashoffset:'+(C*(1-p)).toFixed(1)+'"/></svg><div class="ringtxt"><b>'+a.placedMonth+' / '+t+'</b>placed this month</div></div>'}
+function render(){const st=$('#stats'),l=$('#list');if(!st||!l)return;paintRing();
+  const c={};ST.forEach(s=>c[s]=0);rows.forEach(r=>{if(c[r.status]!=null)c[r.status]++});
+  st.innerHTML=[['Total',rows.length]].concat(ST.map(k=>[k,c[k]])).map(x=>'<div class="stat"><b>'+x[1]+'</b><span>'+x[0]+'</span></div>').join('');
+  const la=$('#la');if(la){let mx=0;rows.forEach(r=>{mx=Math.max(mx,r.updatedAt||r.createdAt||0)});la.textContent=mx?'Last activity '+new Date(mx).toLocaleDateString():'No activity yet'}
+  const cl=$('#calls');if(cl){const td=today(),due=ro?[]:rows.filter(r=>r.follow&&r.follow<=td&&r.status!=='Placed'&&r.status!=='Rejected').sort((a,b)=>a.follow<b.follow?-1:1);
+    cl.innerHTML=due.length?'<section class="calls"><h2>Today’s calls<span class="chip">'+due.length+'</span></h2>'+due.map(r=>{const late=Math.round((new Date(td)-new Date(r.follow))/864e5);return '<div class="call" data-id="'+esc(r.id)+'"><div><div class="nm">'+esc(r.name)+'</div><div class="mt">'+esc(r.role||'')+'</div></div><a class="tel" href="tel:'+esc(r.phone)+'">'+esc(r.phone)+'</a><span class="due '+(late>0?'late':'')+'">'+(late>0?'Overdue '+late+'d':'Today')+'</span><div class="acts"><button class="btn sm cd" type="button">Done</button><button class="btn ghost sm ce" type="button">Open</button></div></div>'}).join('')+'</section>':''}
+  const v=shown();if(!v.length){l.innerHTML='<div class="empty">'+(rows.length?'No candidates match your search.':(ro?'No candidates yet.':'No candidates yet. Add your first one.'))+'</div>';return}
+  l.innerHTML='<div class="row head"><span>Candidate</span><span>Role</span><span>Contact</span><span>Added</span><span>Status</span><span></span></div>'+v.map(r=>{
+    const fu=r.follow?'<br>Follow-up '+esc(r.follow):'';
+    return '<div class="row" data-id="'+esc(r.id)+'"><div><div class="nm">'+esc(r.name)+'</div><div class="mt">'+esc([r.title,r.years!==''&&r.years!=null?r.years+' yrs':'',r.location].filter(Boolean).join(' · '))+'</div></div><div class="mt">'+esc(r.role||'-')+'<br>'+esc(r.source||'')+'</div><div class="mt">'+esc(r.phone)+'<br>'+esc(r.email||'')+fu+'</div><div class="mt">'+esc(r.createdAt?new Date(r.createdAt).toLocaleDateString():'')+'</div>'
+    +'<select class="stsel" aria-label="Status"'+(ro?' disabled':'')+'>'+ST.map(s=>'<option'+(s===r.status?' selected':'')+'>'+s+'</option>').join('')+'</select>'+(ro?'<div></div>':'<div class="acts"><button class="btn ghost sm ed" type="button">Edit</button><button class="btn ghost sm del" type="button">Delete</button></div>')+'</div>'}).join('')}
+function sendStats(){if(!P||ro||P.status!=='approved')return;const m=mk(),a=agg(rows,m),k=[a.total,a.added,a.interview,a.offer,a.placedMonth,a.placed,a.last,m,P.leader].join('/');if(k===lastStat)return;lastStat=k;
+  setDoc(doc(db,'stats',U.uid),{name:P.name,rid:P.id,leader:P.leader||'',month:m,total:a.total,added:a.added,interview:a.interview,offer:a.offer,placedMonth:a.placedMonth,placed:a.placed,last:a.last,updatedAt:Date.now()}).catch(()=>{})}
+function renderTeam(){const el=$('#team');if(!el||tab!=='team'||!P)return;const m=mk(),mem=allR.filter(r=>r.status==='approved');
+  const my=agg(rows,m),tot={added:my.added,interview:my.interview,placed:my.placedMonth,target:+P.target||0};
+  const body=mem.map(r=>{const s=allS[r.uid]||{},cur=s.month===m,pm=cur?(s.placedMonth||0):0,t=+r.target||0;tot.added+=cur?(s.added||0):0;tot.interview+=s.interview||0;tot.placed+=pm;tot.target+=t;
+    return '<div class="row team"><div><div class="nm">'+esc(r.name)+'</div><div class="mt">'+esc(r.id)+'</div></div><div class="mt">'+(cur?(s.added||0):0)+' added<br>'+(s.interview||0)+' in interview</div><div class="mt"><b>'+pm+'</b> / '+(t||'-')+' placed<div class="pbar"><i style="width:'+(t?Math.min(100,pm/t*100):0)+'%"></i></div></div><div class="mt">'+(s.last?'Active '+new Date(s.last).toLocaleDateString():'No activity yet')+'</div></div>'}).join('');
+  el.innerHTML='<div class="stats"><div class="stat"><b>'+mem.length+'</b><span>Team members</span></div><div class="stat"><b>'+tot.added+'</b><span>Added this month</span></div><div class="stat"><b>'+tot.interview+'</b><span>In interview</span></div><div class="stat"><b>'+tot.placed+'</b><span>Placed this month</span></div><div class="stat"><b>'+(tot.target||'-')+'</b><span>Team target</span></div></div>'+(mem.length?'<div class="list">'+body+'</div>':'<div class="empty">No recruiters are assigned to your team yet. Orbit management assigns them.</div>')+'<p class="note" style="margin-top:18px">You see team numbers only. Candidate details stay with each recruiter and Orbit management.</p>'}
+
+/* candidate form */
+function openForm(r){editing=r?r.id:null;dupOk=false;$('#dm').textContent='';$('#ft').textContent=r?'Edit candidate':'Add candidate';const f=$('#f');f.reset();
+  if(r){FIELDS.forEach(k=>{if(f.elements[k])f.elements[k].value=r[k]==null?'':r[k]});f.elements.ok.checked=true}
+  $('#hist').innerHTML=r&&r.history&&r.history.length?'<b>History</b>'+r.history.slice().reverse().map(x=>'<div>'+esc(new Date(x.t).toLocaleDateString())+' · '+esc(x.s)+'</div>').join(''):'';
+  $('#panel').classList.add('show');document.body.style.overflow='hidden';f.elements.name.focus()}
+function closeForm(){['panel','mpanel','pwpanel'].forEach(i=>$('#'+i).classList.remove('show'));document.body.style.overflow=''}
+$('#cancel').onclick=closeForm;$('#mc').onclick=closeForm;$('#pwc').onclick=closeForm;addEventListener('keydown',e=>{if(e.key==='Escape')closeForm()});
+['panel','mpanel','pwpanel'].forEach(i=>$('#'+i).onclick=e=>{if(e.target.id===i)closeForm()});
+$('#f').onsubmit=async e=>{e.preventDefault();if(!col||!P)return;const f=e.target,d={},b=$('#save');
+  FIELDS.forEach(k=>d[k]=f.elements[k].value.trim());d.updatedAt=Date.now();
+  const old=editing?rows.find(r=>r.id===editing):null;let h=(old&&old.history)||[];
+  if(!old||old.status!==d.status){h=h.concat([{t:d.updatedAt,s:d.status}]);if(d.status==='Placed')d.placedAt=d.updatedAt}d.history=h;b.disabled=true;
+  try{if(!old){const pk=phoneKey(d.phone),hs=pk.length>=7?await sha(pk):'';
+      if(!dupOk&&pk){const own=rows.some(r=>phoneKey(r.phone)===pk);let other=false;if(hs&&!own){const x=await getDoc(doc(db,'dups',hs));other=x.exists()&&x.data().by!==U.uid}
+        if(own||other){$('#dm').textContent=own?'You already added this phone number. Press Save again to add it anyway.':'Another Orbit recruiter already added this phone number. Press Save again to add it anyway.';dupOk=true;b.disabled=false;return}}
+      d.createdAt=Date.now();await addDoc(col,d);if(hs)setDoc(doc(db,'dups',hs),{by:U.uid,at:Date.now()}).catch(()=>{})}
+    else await updateDoc(doc(col,editing),d);
+    closeForm();toast(old?'Candidate updated':'Candidate saved')}catch(err){toast('Could not save. Try again.')}b.disabled=false};
+$('#pwf').onsubmit=async e=>{e.preventDefault();const pw=e.target.elements.pw.value,m=$('#pwm');if(pw.length<8){m.textContent='Use at least 8 characters.';return}
+  try{await updatePassword(auth.currentUser,pw);closeForm();toast('Password changed')}catch(err){m.textContent=err.code==='auth/requires-recent-login'?'For safety, log out, log in again, then change it.':'Could not change the password.'}};
+app.addEventListener('change',async e=>{if(!e.target.classList.contains('stsel')||ro||!col)return;const id=e.target.closest('.row').dataset.id,r=rows.find(x=>x.id===id),n=Date.now(),v=e.target.value;
+  const u={status:v,updatedAt:n,history:((r&&r.history)||[]).concat([{t:n,s:v}])};if(v==='Placed')u.placedAt=n;
+  try{await updateDoc(doc(col,id),u)}catch(err){toast('Could not change the status.')}});
+app.addEventListener('click',async e=>{const row=e.target.closest('.row,.call');if(!row||!col||ro||row.classList.contains('adm')||row.classList.contains('team'))return;const id=row.dataset.id,t=e.target,r=rows.find(x=>x.id===id);
+  if(t.classList.contains('ed')||t.classList.contains('ce'))openForm(r);
+  if(t.classList.contains('cd'))updateDoc(doc(col,id),{follow:'',updatedAt:Date.now()}).catch(()=>toast('Could not update.'));
+  if(t.classList.contains('del'))twice(t,'Delete',async()=>{try{const pk=r?phoneKey(r.phone):'';await deleteDoc(doc(col,id));toast('Candidate deleted');
+    if(pk.length>=7){const hs=await sha(pk),x=await getDoc(doc(db,'dups',hs));if(x.exists()&&x.data().by===U.uid)deleteDoc(doc(db,'dups',hs)).catch(()=>{})}}catch(err){toast('Could not delete.')}})});
+function exp(){const v=shown();if(!v.length){toast('Nothing to export');return}
+  const h=['name','phone','email','location','title','years','role','source','status','follow','notes'];
+  download('orbit-candidates.csv',csvOf([h.concat(['added_on'])].concat(v.map(r=>h.map(k=>r[k]).concat([r.createdAt?new Date(r.createdAt).toISOString().slice(0,10):''])))))}
+
+/* ---------- admin ---------- */
+function admin(t){if(!isAdm)return;clear();ro=false;rows=[];col=null;atab=t||atab||'req';$('#out').hidden=false;$('#admb').hidden=false;$('#me').textContent='Admin';const mnow=mk();
+  app.innerHTML='<div class="top"><div><h1>Admin panel</h1><p class="sub" style="margin:6px 0 0">Approve recruiters, set targets and teams, and see every dashboard.'+(P&&P.status==='approved'?' <button class="btn ghost sm" id="mydash" type="button">My dashboard</button>':'')+'</p></div></div>'
+  +'<div class="tabs" role="tablist" id="atabs">'+[['req','Requests'],['rec','Recruiters'],['tom','Team of the Month'],['ann','Announcement'],['rep','Report'],['web','Website']].map(x=>'<button role="tab" data-t="'+x[0]+'" aria-selected="'+(x[0]===atab)+'">'+x[1]+'</button>').join('')+'</div>'
+  +'<section id="p-req"><div class="list" id="rq"></div></section><section id="p-rec"><div class="list" id="al"></div></section><section id="p-tom"><div id="tom"></div></section>'
+  +'<section id="p-ann"><div class="card" style="max-width:640px"><h2>Announcement</h2><p class="sub" style="margin:0 0 14px;font-size:14px">This message appears at the top of every recruiter dashboard.</p><form id="nf"><label>Message<textarea name="t" rows="4" maxlength="400"></textarea></label><div class="foot"><button class="btn" type="submit">Publish</button><button class="btn ghost" type="button" id="nc">Remove announcement</button></div></form></div></section>'
+  +'<section id="p-rep"><div class="card" style="max-width:640px"><h2>Monthly report</h2><p class="sub" style="margin:0 0 14px;font-size:14px">One spreadsheet with every recruiter’s numbers for the month.</p><label>Month<input type="month" id="rm" value="'+mnow+'"></label><div class="foot" style="margin-top:14px"><button class="btn" id="rd" type="button">Download report</button></div></div></section>'
+  +'<section id="p-web"><div class="card" style="max-width:640px"><h2>Edit the website</h2><p class="sub" style="margin:0 0 14px;font-size:14px">Change any text, number, link or the agency email on the public website, in English and Arabic.</p><div class="foot"><a class="btn" href="./#admin">Open the website editor</a></div></div></section>';
+  const my=$('#mydash');if(my)my.onclick=dash;
+  const showTab=x=>{atab=x;['req','rec','tom','ann','rep','web'].forEach(k=>{$('#p-'+k).hidden=k!==x});[...document.querySelectorAll('#atabs button')].forEach(b=>b.setAttribute('aria-selected',b.dataset.t===x))};
+  $('#atabs').onclick=e=>{if(e.target.dataset.t)showTab(e.target.dataset.t)};showTab(atab);
+  const draw=()=>{const m=mk(),pend=allR.filter(r=>r.status==='pending').sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)),rest=allR.filter(r=>r.status!=='pending');
+    const rt=document.querySelector('#atabs [data-t="req"]');if(rt)rt.textContent='Requests'+(pend.length?' ('+pend.length+')':'');
+    $('#rq').innerHTML=pend.length?'<div class="row adm head"><span>Request</span><span>ID</span><span>Contact</span><span>Signed up</span><span></span><span></span></div>'+pend.map(r=>'<div class="row adm" data-uid="'+esc(r.uid)+'"><div><div class="nm">'+esc(r.name)+'</div><div class="mt">Waiting for approval</div></div><div class="mt">'+esc(r.id)+'</div><div class="mt">'+esc(r.email)+'<br>'+esc(r.phone)+'</div><div class="mt">'+(r.createdAt?new Date(r.createdAt).toLocaleDateString():'')+'</div><div></div><div class="acts"><button class="btn sm ap" type="button">Approve</button><button class="btn ghost sm rj" type="button">Reject</button></div></div>').join(''):'<div class="empty">No requests waiting.</div>';
+    $('#al').innerHTML=rest.length?'<div class="row adm head"><span>Recruiter</span><span>ID</span><span>Contact</span><span>Team</span><span>This month</span><span></span></div>'+rest.map(r=>{const s=allS[r.uid]||{},pm=s.month===m?(s.placedMonth||0):0,t=+r.target||0,ld=allR.find(x=>x.uid===r.leader);
+      return '<div class="row adm" data-uid="'+esc(r.uid)+'"><div><div class="nm">'+esc(r.name)+(r.role==='leader'?'<span class="chip">Team Leader</span>':'')+'</div><div class="mt '+(r.status==='approved'?'on':'')+'">'+(r.status==='approved'?'Active':'Paused')+'</div></div><div class="mt">'+esc(r.id)+'</div><div class="mt">'+esc(r.email)+'<br>'+esc(r.phone)+'</div><div class="mt">'+(r.role==='leader'?'Leads a team':(ld?'Under '+esc(ld.name):'No team'))+'</div><div class="mt"><b>'+pm+'</b> / '+(t||'-')+' placed<div class="pbar"><i style="width:'+(t?Math.min(100,pm/t*100):0)+'%"></i></div>'+(s.total!=null?s.total+' candidates':'')+'</div><div class="acts"><button class="btn sm vw" type="button">View</button><button class="btn ghost sm mg" type="button">Manage</button><button class="btn ghost sm tg" type="button">'+(r.status==='approved'?'Pause':'Resume')+'</button><button class="btn ghost sm dl" type="button">Delete</button></div></div>'}).join(''):'<div class="empty">No approved recruiters yet.</div>';
+    const act=allR.filter(r=>r.status==='approved'),per=act.map(r=>{const s=allS[r.uid]||{};return {r,pm:s.month===m?(s.placedMonth||0):0}}).sort((a,b)=>b.pm-a.pm),tm={};
+    per.forEach(x=>{const lid=x.r.role==='leader'?x.r.uid:x.r.leader;if(lid)tm[lid]=(tm[lid]||0)+x.pm});
+    const tl=Object.keys(tm).map(id=>{const L=allR.find(r=>r.uid===id);return {name:L?L.name:id,pm:tm[id]}}).sort((a,b)=>b.pm-a.pm),best=tl[0],top=per[0];
+    $('#tom').innerHTML='<p class="sub" style="margin:0 0 16px">Ranked by placements this month ('+m+'). Numbers come from each recruiter’s dashboard.</p><div class="stats" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))"><div class="stat"><span>Top team</span><b style="font-size:30px;margin-top:6px">'+(best&&best.pm?esc('Team '+best.name):'-')+'</b><span>'+(best?best.pm+' placements':'')+'</span></div><div class="stat"><span>Top recruiter</span><b style="font-size:30px;margin-top:6px">'+(top&&top.pm?esc(top.r.name):'-')+'</b><span>'+(top?top.pm+' placements':'')+'</span></div></div>'
+      +'<div class="card" style="max-width:none;margin-bottom:16px"><h2 style="font-size:22px">Teams</h2>'+(tl.length?tl.slice(0,5).map((x,i)=>'<div class="rk"><span>'+(i+1)+'</span>Team '+esc(x.name)+'<b>'+x.pm+'</b></div>').join(''):'<p class="mt">Assign recruiters to a Team Leader in Manage to see teams.</p>')+'</div>'
+      +'<div class="card" style="max-width:none"><h2 style="font-size:22px">Recruiters</h2>'+(per.length?per.slice(0,5).map((x,i)=>'<div class="rk"><span>'+(i+1)+'</span>'+esc(x.r.name)+'<b>'+x.pm+'</b></div>').join(''):'<p class="mt">No numbers yet.</p>')+'</div>'
+      +(best&&top&&best.pm?'<div class="foot" style="margin-top:16px"><button class="btn ghost" id="tc" type="button">Copy winners for the website</button></div>':'');
+    const tc=$('#tc');if(tc)tc.onclick=function(){const txt='Team of the Month: Team '+best.name+' ('+best.pm+' placements). Top recruiter: '+top.r.name+' ('+top.pm+' placements).';if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>{this.textContent='Copied'},()=>toast(txt));else toast(txt)}};
+  unsubs.push(onSnapshot(collection(db,'recruiters'),s=>{allR=s.docs.map(snapR);draw()},()=>toast('Could not load recruiters.')));
+  unsubs.push(onSnapshot(collection(db,'stats'),s=>{allS={};s.docs.forEach(d=>allS[d.id]=d.data());draw()},()=>{}));
+  unsubs.push(onSnapshot(doc(db,'announce','current'),d=>{const f=$('#nf');if(f&&d.exists()&&document.activeElement!==f.elements.t)f.elements.t.value=d.data().text||''},()=>{}));
+  $('#nf').onsubmit=e=>{e.preventDefault();const t=e.target.elements.t.value.trim();if(!t)return;setDoc(doc(db,'announce','current'),{text:t,at:Date.now()}).then(()=>toast('Announcement published')).catch(()=>toast('Could not publish.'))};
+  $('#nc').onclick=()=>deleteDoc(doc(db,'announce','current')).then(()=>{$('#nf').elements.t.value='';toast('Announcement removed')}).catch(()=>toast('Could not remove.'));
+  $('#rd').onclick=()=>report($('#rm').value||mk());
+  const onRows=e=>{const row=e.target.closest('.row.adm');if(!row||row.classList.contains('head'))return;const uid=row.dataset.uid,b=e.target,r=allR.find(x=>x.uid===uid);if(!r)return;
+    if(b.classList.contains('ap')){if(allR.some(x=>x.uid!==uid&&x.id===r.id&&x.status!=='pending')){toast('Another recruiter already has this ID. Reject this request.');return}
+      updateDoc(doc(db,'recruiters',uid),{status:'approved'}).then(()=>toast('Approved '+r.id)).catch(()=>toast('Could not approve.'))}
+    if(b.classList.contains('rj'))twice(b,'Reject',()=>deleteDoc(doc(db,'recruiters',uid)).then(()=>toast('Request rejected')).catch(()=>toast('Could not reject.')));
+    if(b.classList.contains('vw'))viewRec(uid,r.name,r.id);
+    if(b.classList.contains('mg'))openManage(r);
+    if(b.classList.contains('tg'))updateDoc(doc(db,'recruiters',uid),{status:r.status==='approved'?'paused':'approved'}).catch(()=>toast('Could not update.'));
+    if(b.classList.contains('dl'))twice(b,'Delete',async()=>{try{const sn=await getDocs(collection(db,'recruiters',uid,'candidates'));const bt=writeBatch(db);sn.docs.forEach(d=>bt.delete(d.ref));bt.delete(doc(db,'stats',uid));bt.delete(doc(db,'recruiters',uid));await bt.commit();toast('Recruiter deleted')}catch(err){toast('Could not delete.')}})};
+  $('#rq').onclick=onRows;$('#al').onclick=onRows}
+function openManage(r){const f=$('#mf');f.dataset.uid=r.uid;$('#mt').textContent='Manage '+r.name;f.elements.role.value=r.role||'recruiter';f.elements.target.value=r.target||'';
+  f.elements.leader.innerHTML='<option value="">No team leader</option>'+allR.filter(x=>x.role==='leader'&&x.uid!==r.uid&&x.status==='approved').map(x=>'<option value="'+esc(x.uid)+'"'+(x.uid===r.leader?' selected':'')+'>'+esc(x.name)+'</option>').join('');
+  $('#mpanel').classList.add('show');document.body.style.overflow='hidden'}
+$('#mf').onsubmit=async e=>{e.preventDefault();const f=e.target,uid=f.dataset.uid,role=f.elements.role.value;
+  try{await updateDoc(doc(db,'recruiters',uid),{role,leader:role==='leader'?'':f.elements.leader.value,target:Math.max(0,+f.elements.target.value||0)});closeForm();toast('Saved')}catch(err){toast('Could not save.')}};
+async function report(m){try{const lines=[['name','id','role','team_leader','target','candidates_total','added_in_month','interviews_now','offers_now','placed_in_month','placed_total','last_activity']];
+  for(const r of allR.filter(x=>x.status==='approved')){const sn=await getDocs(collection(db,'recruiters',r.uid,'candidates')),a=agg(sn.docs.map(d=>d.data()),m),ld=allR.find(x=>x.uid===r.leader);
+    lines.push([r.name,r.id,r.role||'recruiter',ld?ld.name:'',r.target||'',a.total,a.added,a.interview,a.offer,a.placedMonth,a.placed,a.last?new Date(a.last).toISOString().slice(0,10):''])}
+  download('orbit-report-'+m+'.csv',csvOf(lines));toast('Report ready')}catch(e){toast('Could not build the report.')}}
+function viewRec(uid,name,rid){clear();ro=true;rows=[];col=null;
+  app.innerHTML='<div class="top"><div><h1>'+esc(name)+'</h1><p class="sub" style="margin:6px 0 0">Read-only view<span class="chip">'+esc(rid)+'</span><span class="chip" id="la"></span></p></div><button class="btn ghost" id="bk" type="button">Back to admin</button></div><div class="stats" id="stats" style="margin-top:22px"></div><div class="bar"><input type="search" id="q" placeholder="Search name, phone, role..." aria-label="Search"><select id="fs" aria-label="Filter by status"><option value="">All statuses</option>'+ST.map(x=>'<option>'+x+'</option>').join('')+'</select><button class="btn ghost" id="exp" type="button">Export CSV</button></div><div class="list" id="list"></div>';
+  unsubs.push(onSnapshot(query(collection(db,'recruiters',uid,'candidates'),orderBy('createdAt','desc')),s=>{rows=s.docs.map(snapC);render()},()=>toast('Could not load this dashboard.')));
+  $('#q').oninput=render;$('#fs').onchange=render;$('#exp').onclick=exp;$('#bk').onclick=()=>{ro=false;admin(atab)}}
+</script>
+</body>
+</html>
